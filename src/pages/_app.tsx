@@ -5,19 +5,27 @@ import setupMSW from '../api/setup';
 import GlobalStyle from '../styles/GlobalStyle';
 
 import { QueryClientProvider, QueryClient } from 'react-query';
+import {RecoilRoot} from 'recoil';
+import Header from '@/components/header/Header';
 
 setupMSW();
 
+
 function MyApp({ Component, pageProps }: AppProps) {
+
+
   const client = new QueryClient()
   return (
     <>
       <QueryClientProvider client={client}>
-        <GlobalStyle />
-        <Background />
-        <Content>
-          <Component {...pageProps} />
-        </Content>
+        <RecoilRoot>
+          <GlobalStyle />
+          <Background />
+          <Content>
+            <Header/>
+            <Component {...pageProps} />
+          </Content>
+        </RecoilRoot>
       </QueryClientProvider>
     </>
   );

@@ -49,14 +49,6 @@ const PaginationPage: NextPage = () => {
 
   return (
     <>
-      <Header>
-        <Link href='/'>
-          <Title>HAUS</Title>
-        </Link>
-        <Link href='/login'>
-          <p>login</p>
-        </Link>
-      </Header>
       <Container>
         <ProductList data={data} />
         <Pagination data={data} currentPage={currentPage} setCurrentPage={setCurrentPage}/>

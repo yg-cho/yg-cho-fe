@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 import { useRouter } from 'next/router'
-
+import { useRecoilState } from 'recoil';
+import { loginState } from '@/atoms/Login'
 
 const MAX_BUTTON = 5;
 const MAX_CONTENT = 10;
 
 const Pagination = (props: any) => {
+  const [login, setLogin] = useRecoilState(loginState);
   const router = useRouter();
   console.log(router.query?.page);
   let minimumPage = Number(router.query?.page) || 1;
@@ -22,6 +24,7 @@ const Pagination = (props: any) => {
   const maxPages = Math.ceil(totalCount/MAX_CONTENT)
 
   useEffect(() => {
+    console.log("로그인정보 : ",login);
     console.log("minimumPage :",minimumPage)
     console.log("maximumPage :",maximumPage)
   },[])
