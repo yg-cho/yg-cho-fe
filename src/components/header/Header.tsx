@@ -10,12 +10,11 @@ const Header = () => {
   const [loginInfo, setLoginInfo] = useState(null);
   useEffect(() => {
     setLoginInfo(login)
-    console.log(loginInfo?.user?.NAME)
   },[])
 
 
   const logOut = () => {
-    console.log("logout");
+    setLogin({loggedIn: false, name: ""})
   }
 
   return (
@@ -23,7 +22,7 @@ const Header = () => {
       <Link href='/'>
         <Style.Title>HAUS</Style.Title>
       </Link>
-      {!loginInfo ?
+      {!login.loggedIn ?
         <>
           <Link href='/login'>
             <h2>login</h2>
@@ -31,9 +30,10 @@ const Header = () => {
         </>
         :
         <>
-          <h2>{loginInfo.user?.NAME}</h2>
+          <h2>{login.name}</h2>
           <Link href='/login'>
-            <h2>logout</h2>
+            {/*<h2>logout</h2>*/}
+            <button onClick={()=> logOut()}>logout</button>
           </Link>
         </>
       }
