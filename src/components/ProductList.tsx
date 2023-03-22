@@ -1,19 +1,25 @@
 import styled from 'styled-components';
 
-import { Product } from '../types/product';
+import { Product } from '@/types/product';
 import ProductItem from './ProductItem';
 
 type ProductListProps = {
   products: Product[];
 };
 
-const ProductList = ({ products }: ProductListProps) => (
-  <Container>
-    {products.map((product) => (
-      <ProductItem key={product.id} product={product} />
-    ))}
-  </Container>
-);
+const ProductList = (props: any) => {
+  const list = props?.data?.data;
+  // console.log("?? :",list)
+  return (
+    <Container>
+      {list?.products.length > 0 ?
+        list?.products.map((item: any) => (
+          <ProductItem key={item.id} product={item}/>
+        )): null
+      }
+    </Container>
+  )
+};
 
 export default ProductList;
 
