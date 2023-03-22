@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
+import { useRouter } from 'next/router'
+
 
 const MAX_BUTTON = 5;
 const MAX_CONTENT = 10;
 
 const Pagination = (props: any) => {
-  let minimumPage = 1;
-  let maximumPage = 5;
+  const router = useRouter();
+  console.log(router.query?.page);
+  let minimumPage = Number(router.query?.page) || 1;
+  let maximumPage = Number(router.query?.page) || 5;
   const {currentPage, setCurrentPage, data} = props;
   const {products, totalCount } = data?.data || '';
 
@@ -29,9 +33,8 @@ const Pagination = (props: any) => {
 
 
   const prevListButton = () => {
-
-    minimumPage = minimumPage-5;
-    maximumPage = maximumPage-5;
+    minimumPage = minItemSize-5;
+    maximumPage = maxItemSize-5;
     if(minimumPage <= 0){
       minimumPage = 1;
       maximumPage = 5;
@@ -39,28 +42,23 @@ const Pagination = (props: any) => {
     if(maximumPage !== minimumPage+4){
       maximumPage = minimumPage+4;
     }
-    console.log("왜:", minimumPage)
     setMinItemSize(() => minimumPage);
     setMaxItemSize(() => maximumPage)
     setCurrentPage(() => minimumPage)
-    console.log("뭐지 :", minItemSize,maxItemSize)
-    // setCurrentPage(maximumPage);
   }
 
   const nextListButton = () => {
-    minimumPage = minimumPage+5;
-    maximumPage = maximumPage+5;
+    minimumPage = minItemSize+5;
+    maximumPage = maxItemSize+5;
     if(maximumPage > maxPages ){
       maximumPage = maxPages;
     }
     if(minimumPage > maximumPage){
       minimumPage = maximumPage;
     }
-    // setCurrentPage(minimumPage);
     setMinItemSize(() => minimumPage);
     setMaxItemSize(() => maximumPage)
     setCurrentPage(() => maximumPage)
-    console.log(minimumPage,maximumPage)
   }
 
 
@@ -74,7 +72,13 @@ const Pagination = (props: any) => {
       </Button>
         <PageWrapper>
           {pages.map((v)=> (
-            <Page key={v} onClick={() => {setCurrentPage(v)}}>{v}</Page>
+            <Page
+              key={v}
+              disabled={currentPage === v}
+              selected={currentPage === v}
+              onClick={() => {setCurrentPage(v)}}
+            >{v}
+            </Page>
           ))}
 
         </PageWrapper>
