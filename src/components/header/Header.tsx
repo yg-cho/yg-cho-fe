@@ -13,6 +13,11 @@ const Header = () => {
     console.log(loginInfo?.user?.NAME)
   },[])
 
+
+  const logOut = () => {
+    console.log("logout");
+  }
+
   return (
     <Style.Header>
       <Link href='/'>
