@@ -4,24 +4,19 @@ import React from 'react';
 import styled from 'styled-components';
 
 import products from '../../api/data/products.json';
+import { useRouter } from 'next/router';
 
 const ProductDetailPage: NextPage = () => {
-  const product = products[0];
-
+  const router = useRouter();
+  const itemNumber: number = Number(router.query?.id);
+  const product = products[itemNumber];
+  console.log("product : ",product)
   return (
     <>
-      <Header>
-        <Link href='/'>
-          <Title>HAUS</Title>
-        </Link>
-        <Link href='/login'>
-          <p>login</p>
-        </Link>
-      </Header>
-      <Thumbnail src={product.thumbnail ? product.thumbnail : '/defaultThumbnail.jpg'} />
+      <Thumbnail src={product?.thumbnail ? product?.thumbnail : '/defaultThumbnail.jpg'} />
       <ProductInfoWrapper>
         <Name>{product.name}</Name>
-        <Price>{product.price}원</Price>
+        <Price>{product.price.toLocaleString()}원</Price>
       </ProductInfoWrapper>
     </>
   );

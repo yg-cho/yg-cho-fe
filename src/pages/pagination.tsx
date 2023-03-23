@@ -4,7 +4,7 @@ import type { NextPage } from 'next';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import ProductList from '@/components/ProductList';
+import ProductList from '@/components/Product/ProductList';
 import Pagination from '@/components/Pagination';
 import axios from 'axios';
 import { useQuery, useQueryClient } from 'react-query';

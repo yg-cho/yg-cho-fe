@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import { Product } from '@/types/product';
 import ProductItem from './ProductItem';
+import Link from 'next/link';
 
 type ProductListProps = {
   products: Product[];
@@ -9,12 +10,14 @@ type ProductListProps = {
 
 const ProductList = (props: any) => {
   const list = props?.data?.data;
-  // console.log("?? :",list)
+  console.log("?? :",list)
   return (
     <Container>
       {list?.products.length > 0 ?
         list?.products.map((item: any) => (
-          <ProductItem key={item.id} product={item}/>
+            <Link href={`/products/${item.id}`} key={item.id}>
+              <ProductItem key={item.id} product={item}/>
+            </Link>
         )): null
       }
     </Container>

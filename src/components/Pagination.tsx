@@ -4,16 +4,20 @@ import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 import { useRouter } from 'next/router'
 import { useRecoilState } from 'recoil';
 import { loginState } from '@/atoms/Login'
+import ProductItem from '@/components/Product/ProductItem';
+import Link from 'next/link';
 
 const MAX_BUTTON = 5;
 const MAX_CONTENT = 10;
 
+
 const Pagination = (props: any) => {
+  //TODO: products/id 이동은 가능하나, 되돌아오면 페이지네이션이 사라짐
   const [login, setLogin] = useRecoilState(loginState);
   const router = useRouter();
-  console.log(router.query?.page);
-  let minimumPage = Number(router.query?.page) || 1;
-  let maximumPage = Number(router.query?.page) || 5;
+  const pageNumber = Number(router.query?.page);
+  let minimumPage = pageNumber || 1;
+  let maximumPage = pageNumber > 5 ? pageNumber  : 5;
   const {currentPage, setCurrentPage, data} = props;
   const {products, totalCount } = data?.data || '';
 
@@ -48,6 +52,9 @@ const Pagination = (props: any) => {
     setMinItemSize(() => minimumPage);
     setMaxItemSize(() => maximumPage)
     setCurrentPage(() => minimumPage)
+
+
+    router.push(`/pagination?page=${minimumPage}`);
   }
 
   const nextListButton = () => {
@@ -62,26 +69,29 @@ const Pagination = (props: any) => {
     setMinItemSize(() => minimumPage);
     setMaxItemSize(() => maximumPage)
     setCurrentPage(() => maximumPage)
+    router.push(`/pagination?page=${maximumPage}`);
   }
 
 
   return (
     <Container>
-      <Button
-        disabled={currentPage <= 5}
-        onClick={() => prevListButton()}
-      >
-        <VscChevronLeft />
-      </Button>
+        <Button
+          disabled={currentPage <= 5}
+          onClick={() => prevListButton()}
+        >
+          <VscChevronLeft />
+        </Button>
         <PageWrapper>
           {pages.map((v)=> (
-            <Page
-              key={v}
-              disabled={currentPage === v}
-              selected={currentPage === v}
-              onClick={() => {setCurrentPage(v)}}
-            >{v}
-            </Page>
+            <Link href={`pagination?page=${v}`} key={v}>
+              <Page
+                key={v}
+                disabled={currentPage === v}
+                selected={currentPage === v}
+                onClick={() => {setCurrentPage(v)}}
+              >{v}
+              </Page>
+            </Link>
           ))}
 
         </PageWrapper>

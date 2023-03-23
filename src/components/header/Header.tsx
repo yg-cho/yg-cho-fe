@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react';
 import * as Style from './Header.style'
 import { useRecoilState } from 'recoil';
 import { loginState } from '@/atoms/Login'
-import { NextPageContext } from 'next';
-import { Router } from 'next/router';
 const Header = () => {
   const [login, setLogin] = useRecoilState(loginState)
   const [loginInfo, setLoginInfo] = useState(null);
@@ -22,6 +20,7 @@ const Header = () => {
       <Link href='/'>
         <Style.Title>HAUS</Style.Title>
       </Link>
+      <Style.Container>
       {!login.loggedIn ?
         <>
           <Link href='/login'>
@@ -37,6 +36,7 @@ const Header = () => {
           </Link>
         </>
       }
+      </Style.Container>
       {/*{login &&*/}
       {/*  <p>{accessToken}</p>*/}
       {/*}*/}

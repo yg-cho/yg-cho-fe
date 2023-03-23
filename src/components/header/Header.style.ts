@@ -11,4 +11,10 @@ const Title = styled.a`
   font-size: 48px;
 `;
 
-export { Header, Title }
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`
+
+export { Header, Title, Container }

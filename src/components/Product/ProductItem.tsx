@@ -1,16 +1,21 @@
 import styled from 'styled-components';
 
-import { Product } from '../types/product';
+import { Product } from '../../types/product';
+import Link from 'next/link';
 
 type ProductItemProps = {
   product: Product;
 };
 
-const ProductItem = ({ product: { name, thumbnail, price } }: ProductItemProps) => (
+const ProductItem = ({ product: { id, name, thumbnail, price } }: ProductItemProps) => (
   <Container>
-    <Thumbnail src={thumbnail ? thumbnail : '/defaultThumbnail.jpg'} />
-    <Name>{name}</Name>
-    <Price>{price.toLocaleString()}</Price>
+    <Link href={`/products/${id}`}>
+      <a>
+        <Thumbnail src={thumbnail ? thumbnail : '/defaultThumbnail.jpg'} />
+        <Name>{name}</Name>
+        <Price>{price.toLocaleString()}</Price>
+      </a>
+    </Link>
   </Container>
 );
 
